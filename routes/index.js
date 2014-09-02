@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require("fs");
+var mkdirp = require("mkdirp");
 
 /* GET home page. */
 router.get('/', function (req, res) { //read root directory
@@ -38,6 +39,21 @@ router.get('/home/:name*', function (req, res) {
 		}
 		else {
 			res.render("notfound", {path: req.path});			
+		}
+	});
+});
+
+//POST requests
+router.post("/newDir", function (req, res) {
+	var newDir = "public" + req.body.path;
+	console.log(newDir);
+	console.log("PIE");
+	mkdirp(newDir, function (err) {
+		if (err) {
+			res.send(500);
+		}
+		else {
+			res.send(200);
 		}
 	});
 });

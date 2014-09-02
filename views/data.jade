@@ -1,7 +1,10 @@
 extends layout
 
 block content
+	script(src="/javascripts/filelist.js").
 	h1= title
+	p
+		div(id="newDir", class="button") Create new Directory
 	p
 		a(href="#{goup}") #{goup}
 	ul(style="list-style-type:none;")
