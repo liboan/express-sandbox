@@ -26,8 +26,11 @@ router.get('/home/:name*', function (req, res) {
 			res.render("notfound", {path: req.path});
 		}
 		else if (stats.isDirectory()) {
+			var up = req.path.substring(0,req.path.lastIndexOf("/"));
+			up = up.substring(0,up.lastIndexOf("/"));
+			console.log("up: " + up);
 			fs.readdir(path, function (err, data) {
-				res.render("data", { title: req.path, list: data});
+				res.render("data", { title: req.path, goup: up, list: data});
 			});
 		}
 		else if (stats.isFile()) {

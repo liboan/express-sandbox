@@ -2,6 +2,8 @@ extends layout
 
 block content
 	h1= title
-	ul
+	p
+		a(href="#{goup}") #{goup}
+	ul(style="list-style-type:none;")
 		each item in list
-			li #{item}
+			li: a(href="#{item}") #{item}
