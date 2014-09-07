@@ -74,4 +74,17 @@ router.post("/newFile", function (req, res) {
 	});
 });
 
+router.post("/readFile", function (req, res) {
+	var path = "public/home/" + req.body.path;
+	console.log(path);
+	fs.readFile(path, function (err, data) {
+		if (err) {
+			res.send(500);
+		}
+		else {
+			res.send(data);
+		}
+	});
+});
+
 module.exports = router;

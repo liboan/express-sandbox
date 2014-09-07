@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>Page Editor</title>
-		<script src = "javascripts/jquery-2.1.1.js"></script>		
+		<script src = "/javascripts/jquery-2.1.1.js"></script>		
 		<script type = "text/javascript">
 			//function to read file
 			function readFile() {
@@ -9,9 +9,11 @@
 				var requestPath = pathname.split("edit/").pop();
 				console.log(requestPath);
 				$.ajax({
-					url: "sandbox-server.js",
+					url: "/readFile",
 					type: "POST",
-					data: {"request":"readFile","path":requestPath },
+					data: {
+						"path":requestPath 
+					},
 					dataType: "text",
 					success: function(data,textStatus, jqXHR) {
 						console.log("Response code: " + jqXHR.status);
@@ -41,9 +43,12 @@
 				console.log(requestPath);
 				console.log(data);
 				$.ajax({
-					url: "sandbox-server.js",
+					url: "/writeFile",
 					type: "POST",
-					data: {"request":"writeFile","path":requestPath,"data":data},
+					data: {
+						"path":requestPath,
+						"data":data
+					},
 					dataType: "text",
 					success: function(data, textStatus, jqXHR) {
 						alert("Write successful! Your newly changed file will be opened in a popup.");
