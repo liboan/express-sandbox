@@ -5,8 +5,9 @@ block content
 	h1= title
 	p
 		div(id="newDir", class="button") Create new Directory
+		div(id="newFile", class="button") Create new File
 	p
 		a(href="#{goup}") #{goup}
-	ul(style="list-style-type:none;")
+	ul(style="list-style-type:none;", id="fileList")
 		each item in list
 			li: a(href="#{item}") #{item}

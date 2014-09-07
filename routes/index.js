@@ -8,22 +8,24 @@ router.get('/', function (req, res) { //read root directory
   	res.render('index', { title: "Andrew's sandbox"});
 });
 
+router.get("/edit/*", function (req, res) {
+	console.log(req.param("path"));
+	res.sendfile("public/input.html");
+});
+
 router.get("/home", function (req, res) {
 	fs.readdir("public/home", function (err, data) {
 		res.render("data", { title: "home", list: data});
 	});
 });
 
-router.get("/home/:name*/jquery", function (req, res) { //route for jquery
-	res.render('index', { title: 'jquery' });
-});
 
-
-router.get('/home/:name*', function (req, res) {
+router.get('/home/*', function (req, res) {
 	var path = "public/" + req.path.substring(1);
 	console.log("Client requested " + path);
 	fs.stat(path, function (err, stats) {
 		if (err) {
+			console.log("NOTFOUND HOME");
 			res.render("notfound", {path: req.path});
 		}
 		else if (stats.isDirectory()) {
@@ -43,12 +45,26 @@ router.get('/home/:name*', function (req, res) {
 	});
 });
 
+
 //POST requests
 router.post("/newDir", function (req, res) {
 	var newDir = "public" + req.body.path;
 	console.log(newDir);
 	console.log("PIE");
 	mkdirp(newDir, function (err) {
+		if (err) {
+			res.send(500);
+		}
+		else {
+			res.send(200);
+		}
+	});
+});
+
+router.post("/newFile", function (req, res) {
+	var newFile = "public" + req.body.path;
+	console.log(newFile);
+	fs.writeFile(newFile, "", function (err) {
 		if (err) {
 			res.send(500);
 		}
